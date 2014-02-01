@@ -41,13 +41,17 @@ int main(int argc, char * argv[]){
                        
                         m = imread(argv[i + 1]);
                 
-                }else if(string(argv[i] == "-x") || string(argv[i] == "--xcoordinate" )){
+                }else if(string(argv[i]) == "-x" || string(argv[i]) == "--xcoordinate" ){
                         
                         xcoor = atoi(string(argv[i + 1]).c_str());
                 
-                }else if(string(argv[i] == "-y") || string(argv[i] == "--ycoordinate" )){
+                }else if(string(argv[i]) == "-y" || string(argv[i]) == "--ycoordinate" ){
  
                         ycoor = atoi(string(argv[i + 1]).c_str());
+
+                }else if(string(argv[i]) == "-s" ||string(argv[i]) == "--stroke"){
+                 
+                        stroke = atoi(String(argv[i + 1]).c_str());
 
                 }else if(string(argv[i]) == "--help"){
                         
@@ -58,12 +62,6 @@ int main(int argc, char * argv[]){
                 }
         }
         
-        stroke = 4;
-
-
-        xcoor = 50;
-        ycoor = 100;
-
         drawCrossHairs(m);
         
         imshow("Crosshaired Image", m);
