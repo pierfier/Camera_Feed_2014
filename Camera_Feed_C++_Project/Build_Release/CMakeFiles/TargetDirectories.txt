@@ -1,0 +1,1 @@
+/home/pierre/Robotics/Camera_Feed/Camera_Feed_2014/Camera_Feed_C++_Project/Build_Release/CMakeFiles/CameraFeed.dir

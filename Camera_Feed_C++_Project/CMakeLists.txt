@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+project( CameraFeed )
+find_package( OpenCV REQUIRED )
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -std=c++0x")
+set(SOURCES main.cpp)
+add_executable( CameraFeed ${SOURCES})
+target_link_libraries( CameraFeed ${OpenCV_LIBS} )
