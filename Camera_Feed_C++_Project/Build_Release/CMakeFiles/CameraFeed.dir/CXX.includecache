@@ -9,6 +9,8 @@
 /home/pierre/Robotics/Camera_Feed/Camera_Feed_2014/Camera_Feed_C++_Project/main.cpp
 iostream
 -
+string
+-
 opencv2/opencv.hpp
 -
 opencv2/highgui/highgui.hpp

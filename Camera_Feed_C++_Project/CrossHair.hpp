@@ -25,7 +25,7 @@ public class CrossHair{
 
         void setCoordinate(int x){
                 coordinate = x;
-        }
+        }    
 
 };
 #endif
