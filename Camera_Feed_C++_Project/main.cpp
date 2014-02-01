@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv/cv.h>
@@ -20,6 +21,9 @@ void drawCrossHairs(Mat m);
 //
 
 int main(int argc, char * argv[]){
+        
+        //the configuration file for the coordinates
+        ifstream file(); 
         
         Mat m;
         namedWindow("Crosshaired Image", 0);
