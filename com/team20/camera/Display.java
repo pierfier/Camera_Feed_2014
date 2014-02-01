@@ -1,8 +1,11 @@
 package com.team20.camera;
 
 import java.net.HttpURLConnection;
-import java.net.Url;
+import java.net.URL;
+import java.awt.Image;
 import javax.swing.JPanel;
+import java.awt.Graphics;
+import com.sun.image.codec.jpeg*;
 
 //this class has the camera feed image and the crosshairs
 public class Display extends JPanel{
@@ -10,7 +13,7 @@ public class Display extends JPanel{
         int width, height;
 
         //the url from the camera feed
-        Url url;
+        URL url;
  
         //image from the camera feed
         Image cameraFeed;
@@ -28,13 +31,29 @@ public class Display extends JPanel{
         
         //the meat of the Display
         //uses an httpURlConnection, grabs the image       
-        public void grabImage(){
-  
+        public void grabImage(){                
+                HttpURLConnection huc;
+                BufferedInputStream in;
+                DataInputStream dis;
+                try{
+                       //the url for the image
+                       url = new URL("http://192.168.0.100/axis-cgi/jpg/image.cgi?resolution=352x240");
+                        
+                       huc = (HttpURLConnection) url.openConnection();
+
+                       in = new BufferedInputStream(new InputStream(huc.getInputStream()));
+                       dis = new DataInputStream(in);
+
+                       JPEGImageDecoder decoder = JPEGCodec.createJPEGDecoder(dis);
+                       cameraFeed = decoder.decodeAsBufferedImage();
+                }catch(Exception w){
+                        
+                }
         }
  
         public void paint(Graphics g){
                 //draws the camera feed image
-                g.drawImage(CameraFeed, 0 , 0, this);
+                g.drawImage(cameraFeed, 0 , 0, this);
 
 
                 //draws the crosshairs
