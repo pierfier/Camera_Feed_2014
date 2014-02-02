@@ -5,12 +5,17 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv/cv.h>
 #include <unistd.h>
-                 
+#include <vector>                 
+
 using namespace std;
 using namespace cv;
 
+struct CrossHair{
+        int xcoor, ycoor;
+};
 
-int xcoor, ycoor;
+//vector that stores all of the configuration files
+vector<CrossHair> crosshairs;
 
 //size of the crosshairs
 int stroke;
@@ -18,13 +23,28 @@ int stroke;
 //draws the crosshairs
 void drawCrossHairs(Mat m);
 
-//
+//reads in cross hairs and pus them into the vector array
+void readInCrossHairs(){
+        
+}
 
-int main(int argc, char * argv[]){
-        
+CrossHair initCH;
+
+int main(int argc, char * argv[]){   
+
         //the configuration file for the coordinates
-        ifstream file(); 
+        ifstream file;
+        file.open("coordinate_config.txt");
         
+        CrossHair crosshair;
+
+        string word;
+
+        while(file >> word >> crosshair.xcoor >> word >> word >> crosshair.ycoor){ 
+                cout << "X: " << crosshair.xcoor << " Y: " << crosshair.ycoor << endl;
+                crosshairs.push_back(crosshair);
+        }
+
         Mat m;
         namedWindow("Crosshaired Image", 0);
 
@@ -47,11 +67,11 @@ int main(int argc, char * argv[]){
                 
                 }else if(string(argv[i]) == "-x" || string(argv[i]) == "--xcoordinate" ){
                         
-                        xcoor = atoi(string(argv[i + 1]).c_str());
+                        initCH.xcoor = atoi(string(argv[i + 1]).c_str());
                 
                 }else if(string(argv[i]) == "-y" || string(argv[i]) == "--ycoordinate" ){
  
-                        ycoor = atoi(string(argv[i + 1]).c_str());
+                        initCH.ycoor = atoi(string(argv[i + 1]).c_str());
 
                 }else if(string(argv[i]) == "-s" ||string(argv[i]) == "--stroke"){
                  
@@ -70,13 +90,16 @@ int main(int argc, char * argv[]){
         
         imshow("Crosshaired Image", m);
         waitKey(0);
+        
+        file.close();
 }
 
 void drawCrossHairs(Mat m){
 
         //horizontal line
-        line(m, Point(0, ycoor), Point(m.cols, ycoor), Scalar(24, 34, 243), stroke, 8, 0);
+        line(m, Point(0, initCH.ycoor), Point(m.cols, initCH.ycoor), Scalar(24, 34, 243), stroke, 8, 0);
         
         //vertical line
-        line(m, Point(xcoor, 0), Point(xcoor, m.rows), Scalar(100, 80, 200), stroke, 8, 0);
+        line(m, Point(initCH.xcoor, 0), Point(initCH.xcoor, m.rows), Scalar(100, 80, 200), stroke, 8, 0);
+
 }
